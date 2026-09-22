@@ -1,0 +1,6 @@
+.jev_key
+library.csv
+repo/
+__pycache__/
+*.bak
+.DS_Store

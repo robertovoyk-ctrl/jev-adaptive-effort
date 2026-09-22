@@ -1,0 +1,4 @@
+anthropic>=0.125
+requests
+rich
+pandas
