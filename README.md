@@ -79,12 +79,30 @@ Jev calls cost ~$0.000015 each and take 400–1,000 ms.
   vacations, keeps release years consistent and durations fixed per track, so the data reads as a real export.
 - Videos in `demos/` are screen recordings of real runs, sped up between steps with a slow-down on each Jev line.
 
+## Music analyst with your real Spotify data
+
+`library.csv` above is synthetic. To run the analyst on your own listening history:
+
+1. Request your data at https://www.spotify.com/account/privacy → "Extended streaming history"
+   (Spotify emails a ZIP within a few days; the basic "Account data" export works too).
+2. Unzip it and point the importer at the folder (or at a single `Streaming_History_Audio_*.json` file):
+
+   ```bash
+   python3 spotify_import.py ~/Downloads/my_spotify_data/
+   python3 music_agent.py library.csv
+   ```
+
+The importer keeps plays of 30 s or longer, drops entries without artist/track metadata, writes `duration_sec`
+from `ms_played`, and sets `genre` to `Unknown` (Spotify exports carry no genre; the agent copes). It prints how
+many plays were converted and skipped, the number of artists and tracks, and the date range.
+
 ## Files
 
 ```
 jev_agent.py          coding agent (~170 lines)
 music_agent.py        music analyst
 generate_library.py   listening-history generator
+spotify_import.py     Spotify Extended Streaming History JSON → library.csv
 requirements.txt
 .jev_key.example      where the Jev key goes (copy to .jev_key)
 demos/                short demo videos
